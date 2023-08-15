@@ -1,0 +1,70 @@
+﻿@using GameShop.WebUI.Extensions.GameShop.WebUI.Extensions;
+@model CartViewModel
+
+
+  
+    <div class="row">
+
+        <div class="col-8 offset-2">
+
+            <div class="card" style="border:solid 2px">
+
+                <div class="card-header fw-bold fs-5">
+                    Ürün Formu
+                </div>
+
+                <div class="card-body">
+
+                    <form method="post" asp-controller="Cart" asp-action="AddCart" enctype="multipart/form-data">
+                        @*   DOSYA TAŞIYORSAN , ENCTYPE EKLE  -File kısmını formdan ayrı bir part olarak görmesin. *@
+
+                    
+
+                        <input asp-for="Id" type="hidden" />
+                        @* id kontrol için, sonradan gizlenecek*@
+
+
+                    <div class="mb-2">
+                        <label asp-for="Id"></label>
+                        <input asp-for="Id" type="text" class="form-control" />
+                        <span class="text-danger fw-bold mt-1" asp-validation-for="Id"></span>
+                    </div>
+
+                        <div class="mb-2">
+                            <label asp-for="Name"></label>
+                            <input asp-for="Name" type="text" class="form-control" />
+                            <span class="text-danger fw-bold mt-1" asp-validation-for="Name"></span>
+                        </div>
+
+                        <div class="mb-2">
+                            <label asp-for="Description"></label>
+                            <input asp-for="Description" type="text" class="form-control" />
+                        </div>
+
+                  
+                        <div class="mb-2">
+                            <label asp-for="UnitInStock"></label>
+                            <input asp-for="UnitInStock" type="number" class="form-control" />
+                        </div>
+
+                        
+
+
+
+                       
+                        <button type="submit" class="btn btn-success mt-3 float-end">Formu Gönder</button>
+
+                    </form>
+
+
+
+                </div>
+
+
+
+            </div>
+
+
+        </div>
+
+    </div>

@@ -1,0 +1,177 @@
+﻿@using GameShop.WebUI.Controllers
+@using GameShop.WebUI.Extensions.GameShop.WebUI.Extensions;
+
+<html>
+ <head>
+
+
+     @* meta tag keywordler girilecek sonra*@
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+
+   
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css" integrity="sha512-6S2HWzVFxruDlZxI3sXOZZ4/eJ8AcxkQH1+JjSe/ONCEqR9L4Ysq5JdT5ipqtzU7WHalNwzwBv+iE51gNHJNqQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <link rel="stylesheet" href="~/GameShop/assets/css/owl.carousel.min.css"/>
+  <link rel="stylesheet" href="~/GameShop/assets/css/owl.theme.default.min.css"/>
+   
+    <style>
+        /*bu class ile zorunlu giriş uyarısı*/
+        label.required:after {
+            content: "*\00a0";
+            color: red;
+            margin-left: 2px;
+        }
+
+    </style>
+
+</head>
+<body class="d-flex flex-column min-vh-100">
+    <div class="container">
+
+        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+           
+            <div class="container-fluid">
+            <a class="navbar-brand" href="/">GAMESHOP</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="/">Ürünler</a>
+                    </li>
+                        @if (User.IsLogged())
+                        {
+                            
+                        
+                    <li class="nav-item">
+                            <a class="nav-link" asp-controller="Testimonial" asp-action="Save">Yorumlar</a>
+                    </li>
+
+                        }
+                        
+                    
+                </ul>
+               
+            </div>
+                <div class="d-none" id="login">
+                    <partial name="_LoginPartial" model="new LoginViewModel()"> @*view model karışmasını engellemek için model newlendi.*@
+                        @*     Partial ile ana sayfayı parçalara böldüm*@
+                </div>
+
+                @if (!User.IsLogged())
+                {
+                    <div id="welcome">
+                        <partial name="_WelcomePartial">
+                    </div>
+                }
+                else
+                {
+                    var firstName = User.GetUserFirstName();
+                    var lastName = User.GetUserLastName();
+                  
+
+                    <div class="d-flex">
+
+                        <div class="mt-2">
+                            Hoş Geldin @firstName @lastName 
+                        </div>
+
+
+                        @if (User.IsAdmin())
+                        {
+                            <div class="ms-3">
+                                <a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" class="btn btn-danger">Yönetim Paneli</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="ms-3">
+                                <a asp-controller="Auth" asp-action="Update" class="btn btn-danger">Kullanıcı Paneli</a>
+                            </div>
+                        }
+
+
+
+                        <div>
+                            <a asp-controller="Auth" asp-action="Logout" class="btn btn-outline-warning ms-3">Çıkış Yap</a>
+                        </div>
+
+
+                    </div>
+                }
+            </div>
+          </nav>   
+    </div>
+
+     
+  
+
+<div class="container"> 
+@RenderBody()
+</div>
+
+    <footer style="position:relative" class=" bg-dark text-white text-center  py-1 fw-bold">
+
+        GameShop
+        <p style="position:relative"  class="text-secondary"> Kürşad Aktaş | Tüm Hakkları Saklıdır. </p>
+
+
+    </footer>
+
+
+
+
+
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js" integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+        <script src="~/GameShop/assets/js/owl.carousel.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js" integrity="sha512-lbwH47l/tPXJYG9AcFNoJaTMhGvYWhVM9YI43CT+uteTRRaiLCui8snIgyAN8XWgNjNhCqlAUdzZptso6OCoFQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script>
+            $(function(){
+
+            $('.owl-carousel').owlCarousel({
+                loop: true,
+                margin: 10,
+
+            });
+
+            });
+
+        $('#btnGirisYap').click(function () {
+            $('#login').removeClass('d-none')
+            $('#welcome').addClass('d-none')
+
+        })
+
+        $('#btnIptal').click(function () {
+            $('#login').addClass('d-none')
+            $('#welcome').removeClass('d-none')
+        })
+             
+        @if (!string.IsNullOrWhiteSpace(TempData["ErrorMessage"]?.ToString())) /*hata vermemesi için boş olabilir string değer*/
+        {
+            @:toastr.error("@TempData["ErrorMessage"]?.ToString()"); 
+        }
+
+        @if (!string.IsNullOrWhiteSpace(TempData["LoginMessage"]?.ToString())) 
+        {
+            @:toastr.success("@TempData["LoginMessage"]?.ToString()");
+        }
+        </script>
+
+</body>
+
+    
+
+</html>

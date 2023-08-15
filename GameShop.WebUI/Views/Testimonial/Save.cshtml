@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewData["Title"] = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using GameShop.Data.Entities;
+@using GameShop.WebUI.Extensions.GameShop.WebUI.Extensions;
+@model Testimonial
+@{
+    ViewData["Title"] = "Save";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="row">
+
+    <div class="col-8 offset-2">
+        <div class="card" style="border:solid 2px">
+
+            <div class="card-header fw-bold fs-5">Kategori Formu</div>
+
+            <div class="card-body">
+                <form asp-controller="Testimonial" asp-action="Save" method="post">
+
+
+
+
+
+
+
+                    <div class="mb-2">
+                        <label></label>
+                        <label >@User.GetUserName()</label>
+                    </div>
+
+
+                    <div class="mb-2">
+                        <label>Yorum</label>
+                        <input asp-for="Comment" type="text" class="form-control" />
+                        <span class="text-danger fw-bold mt-1"></span> @*uyarı alanı hangi uyarı gelecekse validation il belirt*@
+                    </div>
+
+
+                    <button type="submit" class="btn btn-success mt-3 float-end">Formu Gönder</button>
+
+                </form>
+
+
+            </div>
+
+
+
+
+
+
+
+        </div>
+
+    </div>
+<br />

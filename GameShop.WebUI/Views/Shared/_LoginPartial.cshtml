@@ -1,0 +1,16 @@
+﻿@model LoginViewModel 
+
+<form method="post" asp-controller="Auth" asp-action="Login" class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
+    <div class="d-flex">
+        <input asp-for="Email" type="email" class="form-control form-control-dark text-bg-blue" placeholder="E-Mail..">
+        <input asp-for="Password" type="password" class="form-control form-control-dark text-bg-blue" placeholder="Password..">
+        <button type="submit" class="btn btn-warning ms-2">Giriş</button>
+        <button id="btnIptal" type="button" class="btn btn-outline-warning ms-2">İptal</button>
+    </div> 
+
+</form>
+
+
+@*view model taşınacak prop lar için asp-for eklendi.
+                                                        method post. controller için auth - login
+*@

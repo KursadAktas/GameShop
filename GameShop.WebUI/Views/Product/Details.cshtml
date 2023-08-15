@@ -1,0 +1,48 @@
+﻿@using GameShop.WebUI.Extensions.GameShop.WebUI.Extensions;
+@model ProductDetailsViewModel
+
+
+<div class="container pb-5">
+
+    <table class="table table-bordered">
+        <tr>
+            <th>#</th>
+            <th>Sıra</th>
+            <th>Ürün Adı</th>
+            <th>Fiyat</th>
+            <th>Stok</th>
+            <th>Satın Al</th>
+            
+
+        </tr>
+       
+        
+            <tr>
+                <td>
+
+                
+
+                    <img src="~/images/products/@Model.ImagePath" width="120" height="120" />
+
+            
+            </td>
+                <td>@Model.Id</td>
+                <td>@Model.Name</td>
+                <td>@Model.UnitInPrice</td>
+                <td>@Model.UnitInStock</td>
+                
+                
+                 @if (!User.IsLogged())
+                {
+                <td><a asp-controller="Auth" asp-action="Register" class="btn btn-outline-primary">Satın Al</a> </td>
+                }
+                else
+                {
+               @* <td><a asp-controller="Cart" asp-action="AddCart" asp-route-id="@Model.Id" class="btn btn-outline-danger">Septe Ekle</a> </td>*@
+                }
+            </tr>
+
+            
+
+    </table>
+</div>
